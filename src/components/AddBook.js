@@ -5,16 +5,21 @@ import * as BooksAPI from '../api/BooksAPI'
 
 
 class AddBook extends Component {
-	
+
 	state = {
+		query: '',
 		booksShowing: []
 	};
-	
-  searchTerms=['Android', 'Art', 'Artificial Intelligence', 'Astronomy', 'Austen', 'Baseball', 'Basketball', 'Bhagat', 'Biography', 'Brief', 'Business', 'Camus', 'Cervantes', 'Christie', 'Classics', 'Comics', 'Cook', 'Cricket', 'Cycling', 'Desai', 'Design', 'Development', 'Digital Marketing', 'Drama', 'Drawing', 'Dumas', 'Education', 'Everything', 'Fantasy', 'Film', 'Finance', 'First', 'Fitness', 'Football', 'Future', 'Games', 'Gandhi', 'Homer', 'Horror', 'Hugo', 'Ibsen', 'Journey', 'Kafka', 'King', 'Lahiri', 'Larsson', 'Learn', 'Literary Fiction', 'Make', 'Manage', 'Marquez', 'Money', 'Mystery', 'Negotiate', 'Painting', 'Philosophy', 'Photography', 'Poetry', 'Production', 'Programming', 'React', 'Redux', 'River', 'Robotics', 'Rowling', 'Satire', 'Science Fiction', 'Shakespeare', 'Singh', 'Swimming', 'Tale', 'Thrun', 'Time', 'Tolstoy', 'Travel', 'Ultimate', 'Virtual Reality', 'Web Development', 'iOS']
-	
+
+  SEARCH_TERMS=['Android', 'Art', 'Artificial Intelligence', 'Astronomy', 'Austen', 'Baseball', 'Basketball', 'Bhagat', 'Biography', 'Brief', 'Business', 'Camus', 'Cervantes', 'Christie', 'Classics', 'Comics', 'Cook', 'Cricket', 'Cycling', 'Desai', 'Design', 'Development', 'Digital Marketing', 'Drama', 'Drawing', 'Dumas', 'Education', 'Everything', 'Fantasy', 'Film', 'Finance', 'First', 'Fitness', 'Football', 'Future', 'Games', 'Gandhi', 'Homer', 'Horror', 'Hugo', 'Ibsen', 'Journey', 'Kafka', 'King', 'Lahiri', 'Larsson', 'Learn', 'Literary Fiction', 'Make', 'Manage', 'Marquez', 'Money', 'Mystery', 'Negotiate', 'Painting', 'Philosophy', 'Photography', 'Poetry', 'Production', 'Programming', 'React', 'Redux', 'River', 'Robotics', 'Rowling', 'Satire', 'Science Fiction', 'Shakespeare', 'Singh', 'Swimming', 'Tale', 'Thrun', 'Time', 'Tolstoy', 'Travel', 'Ultimate', 'Virtual Reality', 'Web Development', 'iOS']
+
 	updateBooks=(query) => {
-		query = query.trim().toLowerCase()
-		const queryFilter = this.searchTerms.filter(term => term.toLowerCase() === query);
+		this.setState({
+			query: query,
+			booksShowing: []
+		});
+		const queryFilter = this.SEARCH_TERMS.filter(term => term.toLowerCase() === query.trim().toLowerCase());
+
 		if ( query.length > 0 && queryFilter.length > 0 ) {
 			BooksAPI.search(queryFilter[0])
 			.then((res) => {
@@ -27,21 +32,24 @@ class AddBook extends Component {
 							res[i].shelf = foundBook[0].shelf;
 						}
 					}
-
-					this.setState({booksShowing: res})
+					console.log(query, res);
+					this.setState({
+						query: query,
+						booksShowing: res
+					});
 				}
 			})
 		}
-		else {
-			this.setState({booksShowing: []})
-		}
 	}
-	
+
 	render() {
-		
+
 		return (
 			<div className="search-books">
-				<SearchForm onChange={this.updateBooks} />
+				<SearchForm
+					query={this.state.query}
+					onChange={this.updateBooks}
+				/>
 				<div className="search-books-results">
 					<BookList
 						books={this.state.booksShowing}

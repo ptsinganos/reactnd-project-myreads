@@ -3,16 +3,9 @@ import { Link } from "react-router-dom";
 
 
 class SearchForm extends Component {
-	
-	state = {
-		query: ''
-	}
-	
+
 	onChange = (event) => {
 		const value = event.target.value;
-		this.setState(currState => ({
-			query: value
-		}));
 		this.props.onChange(value);
 	}
 
@@ -29,7 +22,7 @@ class SearchForm extends Component {
 						However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
 						you don't find a specific author or title. Every search is limited by search terms.
 					*/}
-					<input type="text" placeholder="Search by title or author" value={this.state.query} onChange={this.onChange}/>
+					<input type="text" placeholder="Search by title or author" value={this.props.query} onChange={this.onChange}/>
 
 				</div>
 			</div>

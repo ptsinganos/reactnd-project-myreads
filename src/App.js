@@ -10,13 +10,13 @@ class BooksApp extends Component {
 	state = {
 		books:[]
 	};
-	
-	shelves = {
+
+	SHELVES = {
 		currentlyReading: 'Currently Reading',
 		wantToRead: 'Want to Read',
 		read: 'Read'
 	}
-	
+
 	reRenderScreen = () => {
 		BooksAPI.getAll()
 		.then( (books) => {
@@ -25,7 +25,7 @@ class BooksApp extends Component {
       }))
 		});
 	}
-	
+
 	changeShelf = (book, shelf) => {
 		BooksAPI.update(book, shelf)
     .then(()=>{
@@ -35,22 +35,22 @@ class BooksApp extends Component {
       }))
 		});
 	}
-	
+
 	componentDidMount() {
 		this.reRenderScreen();
 	}
-	
+
   render() {
     return (
       <div className="app">
 				<Router>
 					<Route exact path='/search' render={()=>(
-						<AddBook 
+						<AddBook
 							shelfBooks={this.state.books}
 							onChangeShelf={this.changeShelf}
 						/>
 					)} />
-					
+
 					<Route exact path='/' render={()=>(
 						<div className="list-books">
 							<div className="list-books-title">
@@ -58,19 +58,19 @@ class BooksApp extends Component {
 							</div>
 							<div className="list-books-content">
 								<div>
-								{Object.keys(this.shelves).map((k) =>
+								{Object.keys(this.SHELVES).map((k) =>
 									<Shelf
 										books={this.state.books}
 										key={k}
 										shelf={k}
-										title={this.shelves[k]}
+										title={this.SHELVES[k]}
 										onChangeShelf={this.changeShelf}
 									/>
 
 								)}
-								
+
 								</div>
-							</div>	
+							</div>
 							<div className="open-search">
 								<Link to='/search'>Add a book</Link>
 							</div>

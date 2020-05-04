@@ -1,17 +1,17 @@
 import React, { Component } from 'react' ;
 
 class Book extends Component {
-	
+
 	renderAuthor = (a, idx) => <span key={a} style={{display:'block'}}>{a}</span>;
-	
+
 	handleShelfChange = event => {
 		event.preventDefault();
 		this.props.onChangeShelf(this.props.book, event.target.value);
 	}
-	
+
 	render() {
 		const { book } = this.props;
-		
+
 		return (
 			<li>
 				<div className="book">

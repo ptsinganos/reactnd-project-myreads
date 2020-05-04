@@ -3,13 +3,13 @@ import BookList from './BookList'
 
 
 class Shelf extends Component {
-	
+
 	filterBooks = (books, shelf) => {
 		return books.filter(book => book.shelf === shelf);
 	}
-	
+
 	render() {
-		
+
 		return (
 			<div className="bookshelf">
 				<h2 className="bookshelf-title">{this.props.title}</h2>
