@@ -8,10 +8,7 @@ import './App.css';
 
 class BooksApp extends Component {
 	state = {
-		books:[],
-		currentlyReading: [],
-		wantToRead: [],
-		read: []
+		books:[]
 	};
 	
 	shelves = {
@@ -20,29 +17,6 @@ class BooksApp extends Component {
 		read: 'Read'
 	}
 	
-	// filterBooks = () => {
-		// let currReadIds = [];
-		// let wantReadIds = [];
-		// let readIds = [];
-		
-		// this.state.books.forEach(book => {
-			// switch (book.shelf) {
-				// case 'currentlyReading':
-					// currReadIds.concat(book.id);
-				// case 'wantToRead':
-					// wantReadIds.concat(book.id);
-				// case 'read':
-					// readIds.concat(book.id);
-			// }
-		// });
-		
-		// this.setState( currState => ({
-			// currentlyReading: currReadIds,
-			// wantToRead: wantReadIds,
-			// read: readIds
-		// }));
-	// }
-	
 	reRenderScreen = () => {
 		BooksAPI.getAll()
 		.then( (books) => {
@@ -50,7 +24,6 @@ class BooksApp extends Component {
         books: books
       }))
 		});
-		// .then(this.filterBooks);
 	}
 	
 	changeShelf = (book, shelf) => {
@@ -61,7 +34,6 @@ class BooksApp extends Component {
         books: currentState.books.filter(b => b.id !== book.id).concat([book])
       }))
 		});
-		// .then(this.filterBooks)
 	}
 	
 	componentDidMount() {

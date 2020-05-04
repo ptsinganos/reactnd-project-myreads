@@ -21,7 +21,6 @@ class AddBook extends Component {
 
 				if (!res.error) {
 					res = res.map( b => ( {...b, shelf: 'none'} ));
-					// loop shelfBooks
 					for (let i=0; i<res.length; i++) {
 						let foundBook = this.props.shelfBooks.filter(sb => sb.id === res[i].id);
 						if (foundBook.length === 1) {
